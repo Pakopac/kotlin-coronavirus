@@ -1,4 +1,4 @@
-package com.example.coronavirus
+package com.example.coronavirus.api
 
 import com.example.coronavirus.utils.logE
 import retrofit2.Response

@@ -1,4 +1,4 @@
-package com.example.coronavirus.adapter
+package com.example.coronavirus.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
