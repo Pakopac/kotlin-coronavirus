@@ -2,7 +2,6 @@ package com.example.coronavirus.data
 
 data class Usa(
     val active_cases: Int?,
-    val change: ChangeXXX?,
     val critical: Int?,
     val death_ratio: Double?,
     val deaths: Int?,

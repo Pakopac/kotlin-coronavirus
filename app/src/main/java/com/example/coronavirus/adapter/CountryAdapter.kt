@@ -9,25 +9,29 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coronavirus.R
 import com.example.coronavirus.models.Country
+import com.example.coronavirus.databinding.RowLayoutBinding
 
-class RecyclerAdapter(private val dataList:MutableList<Country>) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
-    private  lateinit var context: Context
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        context = parent.context
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.row_layout, parent, false))
+class CountryListAdapter() : ListAdapter<Country, RecyclerView.ViewHolder>(
+    CountryDiffCallback()
+) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(RowLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun getItemCount(): Int = dataList.size
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val data = dataList[position]
-        val countryName = holder.itemView.country_name
-    }
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
+        (holder as ViewHolder).bind(getItem(position))
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: Country) {
-            with(itemView) {
-                country_name.text = item.name
-            }
+
+    inner class ViewHolder(private val binding: RowLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(country: Country) {
+
+            binding.country = country
+
         }
     }
+}
+
+class CountryDiffCallback : DiffUtil.ItemCallback<Country>() {
+    override fun areItemsTheSame(oldItem: Country, newItem: Country) = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: Country, newItem: Country) = oldItem.id == newItem.id
 }

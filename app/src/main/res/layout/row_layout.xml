@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         tools:text="Name"
+        android:text="@{country.name}"
         tools:ignore="MissingConstraints" />
 
 </layout>

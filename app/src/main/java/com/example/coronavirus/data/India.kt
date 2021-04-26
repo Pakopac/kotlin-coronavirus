@@ -2,7 +2,6 @@ package com.example.coronavirus.data
 
 data class India(
     val active_cases: Int?,
-    val change: ChangeXX?,
     val critical: Int?,
     val death_ratio: Double?,
     val deaths: Int?,
