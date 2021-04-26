@@ -1,17 +1,17 @@
 package com.example.coronavirus.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coronavirus.R
-import com.example.coronavirus.models.Country
+import com.example.coronavirus.data.Regions
 import com.example.coronavirus.databinding.RowLayoutBinding
 
-class CountryListAdapter() : ListAdapter<Country, RecyclerView.ViewHolder>(
+
+class CountryListAdapter : ListAdapter<Regions, RecyclerView.ViewHolder>(
     CountryDiffCallback()
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,15 +23,17 @@ class CountryListAdapter() : ListAdapter<Country, RecyclerView.ViewHolder>(
 
 
     inner class ViewHolder(private val binding: RowLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(country: Country) {
+        private val name: TextView = itemView.findViewById(R.id.country_name)
+        fun bind(regions: Regions) {
 
-            binding.country = country
+            binding.country = regions
+            name.text = regions.france!!.name
 
         }
     }
 }
 
-class CountryDiffCallback : DiffUtil.ItemCallback<Country>() {
-    override fun areItemsTheSame(oldItem: Country, newItem: Country) = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: Country, newItem: Country) = oldItem.id == newItem.id
+class CountryDiffCallback : DiffUtil.ItemCallback<Regions>() {
+    override fun areItemsTheSame(oldItem: Regions, newItem: Regions) = oldItem.france!!.name == newItem.france!!.name
+    override fun areContentsTheSame(oldItem: Regions, newItem: Regions) = oldItem.france!!.name == newItem.france!!.name
 }

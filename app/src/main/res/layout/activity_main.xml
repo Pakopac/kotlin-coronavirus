@@ -6,12 +6,13 @@
     <data>
         <variable
             name="country"
-            type="com.example.coronavirus.models.Country"/>
+            type="com.example.coronavirus.data.Regions"/>
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/rv_countries"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/row_layout"/>
 
 </layout>
