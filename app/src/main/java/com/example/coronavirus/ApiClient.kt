@@ -7,25 +7,18 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    private const val BASE_URL: String = "https://api.quarantine.country/api/v1/summary/latest"
+    private var retrofit: Retrofit? = null
+    private const val BASE_URL: String = "https://api.quarantine.country/api/v1/summary/latest/"
 
-    private val gson : Gson by lazy {
-        GsonBuilder().setLenient().create()
-    }
+    val retrofitInstance: Retrofit?
+        get() {
+            if (retrofit == null) {
+                retrofit = retrofit2.Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            }
 
-    private val httpClient : OkHttpClient by lazy {
-        OkHttpClient.Builder().build()
-    }
-
-    private val retrofit : Retrofit by lazy {
-        Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(httpClient)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build()
-    }
-
-    val apiService :  ApiService by lazy{
-        retrofit.create(ApiService::class.java)
-    }
+            return retrofit
+        }
 }
